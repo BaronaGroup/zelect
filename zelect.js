@@ -57,7 +57,10 @@
 
       $search.keyup(function(e) {
         switch (e.which) {
-          case keys.esc: hide(); return;
+          case keys.esc:
+            hide();
+            resetZearch();
+            return;
           case keys.up: return;
           case keys.down: return;
           case keys.enter:
@@ -134,12 +137,18 @@
         })
       }
 
-      function reset() {
+      function resetZearch(callback) {
         $search.data().reset ? $search.data().reset() : $search.val('')
         itemHandler.load(queryExtractor($search), function() {
-          initialSelection(false)
+          checkResults()
+          callback && callback()
         })
       }
+
+      function reset() {
+        resetZearch(function() {initialSelection(false)})
+      }
+
       function refreshZelect(callback) {
         itemHandler.load(queryExtractor($search), function() {
           callback && callback()
