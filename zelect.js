@@ -282,7 +282,7 @@
         return true
       } else {
         var lastChildTop = $lastChild.offset().top - $list.offset().top
-        var lastChildVisible = lastChildTop < $list.outerHeight()
+        var lastChildVisible = $lastChild.is(':visible') && $lastChild.height() > 0 && lastChildTop < $list.outerHeight()
         if (lastChildVisible) load()
         return lastChildVisible
       }
